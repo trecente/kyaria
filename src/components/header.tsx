@@ -3,17 +3,18 @@ import Link from "next/link";
 
 import Logo from "@/assets/logo.svg";
 
-import { EnvelopeClosedIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import { MobileMenu } from "./mobile-menu";
+import { ToggleTheme } from "./toggle-theme";
 
 import { buttonVariants } from "@/components/ui/button";
 
-import { ToggleTheme } from "./toggle-theme";
+import { EnvelopeClosedIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export function Header() {
   return (
     <header className="relative select-none">
-      <div className="flex h-20 items-center justify-between">
-        <div className="flex items-center gap-2.5">
+      <div className="flex h-20 items-center">
+        <div className="hidden items-center gap-1 sm:flex">
           <Link
             className={buttonVariants({ size: "icon", variant: "ghost" })}
             href="https://github.com/trecente"
@@ -38,7 +39,22 @@ export function Header() {
           </Link>
         </div>
 
-        <ToggleTheme />
+        <div className="ml-auto">
+          <MobileMenu />
+
+          <div className="hidden items-center gap-2 sm:flex">
+            <ToggleTheme />
+
+            <span className="mr-2 h-6 w-px bg-gray-200 dark:bg-neutral-700" />
+
+            <Link
+              href="/post-job"
+              className={buttonVariants({ variant: "secondary" })}
+            >
+              Post a Job
+            </Link>
+          </div>
+        </div>
       </div>
     </header>
   );
