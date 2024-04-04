@@ -8,7 +8,7 @@ export function Wrapper({
   children: React.ReactNode;
 }) {
   return (
-    <div className={cn("mx-auto max-w-7xl px-4 sm:px-6", className)}>
+    <div className={cn("mx-auto max-w-[1440px] px-4 sm:px-6", className)}>
       {children}
     </div>
   );
