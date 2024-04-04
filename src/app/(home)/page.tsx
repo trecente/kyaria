@@ -1,4 +1,8 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
+
+import { JobList } from "./_components/job-list";
+import { Skeletons } from "./_components/skeletons";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -15,6 +19,18 @@ export default function Home() {
           Thousands of jobs in the computer, engineering and technology sectors
           are waiting for you.
         </p>
+      </div>
+
+      <div className="gap-4 xl:grid xl:grid-cols-12">
+        <aside className="col-span-2 h-fit xl:sticky xl:top-0">
+          {/* TODO: Add Filter */}
+        </aside>
+
+        <div className="col-span-8">
+          <Suspense fallback={<Skeletons />}>
+            <JobList />
+          </Suspense>
+        </div>
       </div>
     </main>
   );
