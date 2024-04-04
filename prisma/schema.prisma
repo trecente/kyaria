@@ -1,0 +1,30 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Job {
+  id               Int      @id @default(autoincrement())
+  title            String
+  companyName      String   @map("company_name")
+  companyLogo      String?  @map("company_logo")
+  slug             String   @unique
+  type             String
+  location         String?
+  locationType     String   @map("location_type")
+  description      String
+  salary           Int
+  applicationEmail String?  @map("application_email")
+  applicationUrl   String?  @map("application_url")
+  approved         Boolean  @default(false)
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@map("jobs")
+}
