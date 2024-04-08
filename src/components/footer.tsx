@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="flex justify-center p-4">
+    <footer className="mt-auto flex justify-center p-4">
       <span className="text-sm font-medium">
         © {new Date().getFullYear()}{" "}
         <Link
