@@ -1,9 +1,10 @@
 import { JobCard } from "./job-card";
 
 import { getJobs } from "@/lib/fetchers";
+import { FilterType } from "@/lib/schemas";
 
-export async function JobList() {
-  const jobs = await getJobs();
+export async function JobList({ searchParams }: { searchParams: FilterType }) {
+  const jobs = await getJobs(searchParams);
 
   return (
     <div className="xl:space-y-4">

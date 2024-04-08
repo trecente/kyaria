@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+import { Filter } from "./_components/filter";
 import { JobList } from "./_components/job-list";
 import { Skeletons } from "./_components/skeletons";
 
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
   title: "Home",
 };
 
-export default function Home() {
+interface HomeProps {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default function Home({ searchParams }: HomeProps) {
   return (
     <main>
       <div className="mx-auto max-w-sm space-y-2 py-10 text-center sm:max-w-xl sm:space-y-2 sm:py-14 md:max-w-3xl md:space-y-4 md:py-20">
@@ -23,12 +28,12 @@ export default function Home() {
 
       <div className="gap-4 xl:grid xl:grid-cols-12">
         <aside className="col-span-2 h-fit xl:sticky xl:top-0">
-          {/* TODO: Add Filter */}
+          <Filter />
         </aside>
 
         <div className="col-span-8">
           <Suspense fallback={<Skeletons />}>
-            <JobList />
+            <JobList searchParams={searchParams} />
           </Suspense>
         </div>
       </div>
