@@ -9,6 +9,7 @@ import { Wrapper } from "@/components/wrapper";
 
 import { cn } from "@/lib/utils";
 
+import { Footer } from "@/components/footer";
 import "@/styles/globals.css";
 
 const fontSans = FontSans({
@@ -42,6 +43,8 @@ export default function RootLayout({
             <main className="flex min-h-screen flex-col">
               <div className="flex-1 flex-grow">{children}</div>
             </main>
+
+            <Footer />
           </Wrapper>
         </Providers>
       </body>
