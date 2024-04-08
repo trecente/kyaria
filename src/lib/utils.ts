@@ -3,6 +3,8 @@ import { twMerge } from "tailwind-merge";
 
 import { formatDistanceToNowStrict } from "date-fns";
 
+import { FilterType, filterSchema } from "./schemas";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -24,4 +26,29 @@ export function formatDateToRelativeString(date: Date): string {
   return formatDistanceToNowStrict(date, {
     addSuffix: true,
   });
+}
+
+export function validateFilterParams(
+  filterParams: FilterType,
+): FilterType | null {
+  if (!filterParams) return null;
+
+  const clonedFilterParams = JSON.parse(JSON.stringify(filterParams));
+
+  try {
+    const validatedFilterParams = filterSchema.safeParse(filterParams);
+
+    if (!validatedFilterParams.success) {
+      validatedFilterParams.error.errors.forEach((error) => {
+        clonedFilterParams[error.path[0]] = null;
+      });
+
+      return clonedFilterParams;
+    }
+
+    return validatedFilterParams.data;
+  } catch (error) {
+    console.error(`Unexpected error during validation: ${error}`);
+    return null;
+  }
 }
