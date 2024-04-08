@@ -15,7 +15,7 @@ interface HomeProps {
 
 export default function Home({ searchParams }: HomeProps) {
   return (
-    <main>
+    <>
       <div className="mx-auto max-w-sm space-y-2 py-10 text-center sm:max-w-xl sm:space-y-2 sm:py-14 md:max-w-3xl md:space-y-4 md:py-20">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
           Find your <span className="text-blue-600">new job</span> today.
@@ -37,6 +37,6 @@ export default function Home({ searchParams }: HomeProps) {
           </Suspense>
         </div>
       </div>
-    </main>
+    </>
   );
 }

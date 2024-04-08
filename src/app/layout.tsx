@@ -30,9 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
-      >
+      <body className={cn("font-sans antialiased", fontSans.variable)}>
         <Providers>
           <div className="fixed left-0 top-0 -z-10 h-full w-full">
             <div className="absolute inset-0 [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#2563eb_100%)] dark:[background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#2563eb_100%)]" />
@@ -41,7 +39,9 @@ export default function RootLayout({
           <Wrapper>
             <Header />
 
-            {children}
+            <main className="flex min-h-screen flex-col">
+              <div className="flex-1 flex-grow">{children}</div>
+            </main>
           </Wrapper>
         </Providers>
       </body>
