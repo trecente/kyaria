@@ -5,12 +5,16 @@ import { Filter } from "./_components/filter";
 import { JobList } from "./_components/job-list";
 import { Skeletons } from "./_components/skeletons";
 
-export const metadata: Metadata = {
-  title: "Home",
-};
-
 interface HomeProps {
   searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export function generateMetadata({ searchParams: { q } }: HomeProps): Metadata {
+  const title = q ? `Search results for "${q}"` : "Home";
+
+  return {
+    title,
+  };
 }
 
 export default function Home({ searchParams }: HomeProps) {
