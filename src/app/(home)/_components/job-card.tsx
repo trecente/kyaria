@@ -48,14 +48,14 @@ export function JobCard({
           </div>
 
           <div className="pr-10 md:px-16">
-            <h1 className="text-sm font-medium tracking-tight">
+            <h1 className="font-medium tracking-tight md:text-sm">
               {companyName}
             </h1>
             <h1 className="mb-1 text-xl font-semibold md:mb-0 md:text-lg">
               {title}
             </h1>
 
-            <div className="flex flex-col gap-1 font-medium tracking-tighter text-muted-foreground md:mt-1 md:max-w-[470px] md:flex-row md:justify-between md:gap-0">
+            <div className="flex flex-col gap-1 text-muted-foreground md:mt-1 md:max-w-[470px] md:flex-row md:justify-between md:gap-0">
               <div className="flex items-center gap-1 md:gap-0">
                 <MapPin
                   className="size-6 shrink-0 md:size-5"
