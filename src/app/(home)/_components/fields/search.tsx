@@ -1,5 +1,7 @@
 import { Control } from "react-hook-form";
 
+import { FilterType } from "@/lib/schemas";
+
 import {
   FormControl,
   FormField,
@@ -7,11 +9,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
 import { Input } from "@/components/ui/input";
 
 interface SearchFieldProps {
-  control: Control;
+  control: Control<FilterType>;
   isSubmitting: boolean;
 }
 

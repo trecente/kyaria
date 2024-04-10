@@ -1,12 +1,14 @@
 import { Control } from "react-hook-form";
 
+import { WORK_LOCATIONS } from "@/lib/constants";
+import { FilterType } from "@/lib/schemas";
+
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-
 import {
   Select,
   SelectContent,
@@ -15,10 +17,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { WORK_LOCATIONS } from "@/lib/constants";
-
 interface WorkLocationProps {
-  control: Control;
+  control: Control<FilterType>;
   isSubmitting: boolean;
 }
 

@@ -1,12 +1,13 @@
 import { Control } from "react-hook-form";
 
+import { FilterType } from "@/lib/schemas";
+
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-
 import {
   Select,
   SelectContent,
@@ -16,7 +17,7 @@ import {
 } from "@/components/ui/select";
 
 interface LocationFieldProps {
-  control: Control;
+  control: Control<FilterType>;
   isSubmitting: boolean;
   locations: string[];
 }
