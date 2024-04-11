@@ -46,6 +46,7 @@ export function EmploymentField({
             </FormControl>
 
             <SelectContent>
+              <SelectItem value="Any">Any</SelectItem>
               {EMPLOYMENT_TYPES.map((type) => (
                 <SelectItem key={type} value={type}>
                   {type}

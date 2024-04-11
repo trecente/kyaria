@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-interface WorkLocationProps {
+interface WorkLocationFieldProps {
   control: Control<FilterType>;
   isSubmitting: boolean;
 }
@@ -25,7 +25,7 @@ interface WorkLocationProps {
 export function WorkLocationField({
   control,
   isSubmitting,
-}: WorkLocationProps) {
+}: WorkLocationFieldProps) {
   return (
     <FormField
       control={control}
@@ -46,6 +46,7 @@ export function WorkLocationField({
             </FormControl>
 
             <SelectContent>
+              <SelectItem value="Any">Any</SelectItem>
               {WORK_LOCATIONS.map((type) => (
                 <SelectItem key={type} value={type}>
                   {type}
