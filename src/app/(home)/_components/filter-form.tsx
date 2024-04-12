@@ -1,12 +1,13 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoaderCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-
 import { useForm } from "react-hook-form";
 
-import { LoaderCircle } from "lucide-react";
-
-import { zodResolver } from "@hookform/resolvers/zod";
+import { filterJobs } from "@/lib/actions";
+import { FilterType, filterSchema } from "@/lib/schemas";
+import { validateFilterParams } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -15,10 +16,6 @@ import { EmploymentField } from "./fields/employment";
 import { LocationField } from "./fields/location";
 import { SearchField } from "./fields/search";
 import { WorkLocationField } from "./fields/work";
-
-import { filterJobs } from "@/lib/actions";
-import { FilterType, filterSchema } from "@/lib/schemas";
-import { validateFilterParams } from "@/lib/utils";
 
 interface FilterFormProps {
   locations: string[];
@@ -45,7 +42,11 @@ export function FilterForm({ locations }: FilterFormProps) {
     },
   });
 
-  const { isSubmitting } = form.formState;
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting },
+  } = form;
 
   const onSubmit = async (data: FilterType) => {
     const formData = new FormData();
@@ -59,19 +60,16 @@ export function FilterForm({ locations }: FilterFormProps) {
 
   return (
     <Form {...form}>
-      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:block xl:space-y-4">
-          <SearchField control={form.control} isSubmitting={isSubmitting} />
+          <SearchField control={control} isSubmitting={isSubmitting} />
           <LocationField
-            control={form.control}
+            control={control}
             isSubmitting={isSubmitting}
             locations={locations}
           />
-          <WorkLocationField
-            control={form.control}
-            isSubmitting={isSubmitting}
-          />
-          <EmploymentField control={form.control} isSubmitting={isSubmitting} />
+          <WorkLocationField control={control} isSubmitting={isSubmitting} />
+          <EmploymentField control={control} isSubmitting={isSubmitting} />
         </div>
 
         <Button className="w-full" variant="secondary" disabled={isSubmitting}>
