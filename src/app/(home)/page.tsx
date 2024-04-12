@@ -30,16 +30,13 @@ export default function Home({ searchParams }: HomeProps) {
         </p>
       </div>
 
-      <div className="gap-4 xl:grid xl:grid-cols-12">
-        <aside className="col-span-2 h-fit xl:sticky xl:top-0">
+      <div className="grid-cols-[15rem_1fr_15rem] gap-4 xl:grid">
+        <aside className="h-fit xl:sticky xl:top-0">
           <Filter />
         </aside>
-
-        <div className="col-span-8">
-          <Suspense fallback={<Skeletons />}>
-            <JobList searchParams={searchParams} />
-          </Suspense>
-        </div>
+        <Suspense fallback={<Skeletons />}>
+          <JobList searchParams={searchParams} />
+        </Suspense>
       </div>
     </>
   );
