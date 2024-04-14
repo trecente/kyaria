@@ -1,14 +1,12 @@
+import { Job } from "@prisma/client";
+import { Calendar, Clock, Earth, MapPin, Wallet } from "lucide-react";
 import Image from "next/image";
 
-import companyLogoDefault from "@/assets/logo.svg";
-
-import { Job } from "@prisma/client";
+import { formatCurrency, formatDateToRelativeString } from "@/lib/utils";
 
 import { Card, CardContent } from "@/components/ui/card";
 
-import { Calendar, Clock, Earth, MapPin, Wallet } from "lucide-react";
-
-import { formatCurrency, formatDateToRelativeString } from "@/lib/utils";
+import companyLogoDefault from "@/assets/logo.svg";
 
 interface JobCardProps {
   job: Job;
@@ -35,6 +33,7 @@ export function JobCard({
             <Image
               src={companyLogo ?? companyLogoDefault}
               alt={`${companyName} Logo`}
+              className="aspect-square rounded-lg"
               width={50}
               height={50}
             />
@@ -97,7 +96,7 @@ export function JobCard({
             </div>
 
             <div className="mt-2 hidden md:block">
-              <p className="text-muted-foreground">
+              <p className="break-all text-muted-foreground">
                 {description.length > 180
                   ? `${description.slice(0, 180)}...`
                   : description}
