@@ -23,7 +23,7 @@ export function SearchField({ control, isSubmitting }: SearchFieldProps) {
       name="q"
       render={({ field }) => (
         <FormItem>
-          <FormLabel htmlFor="q">Search</FormLabel>
+          <FormLabel>Search</FormLabel>
 
           <FormControl>
             <Input

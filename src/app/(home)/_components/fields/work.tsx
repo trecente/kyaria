@@ -32,7 +32,7 @@ export function WorkLocationField({
       name="work"
       render={({ field }) => (
         <FormItem>
-          <FormLabel htmlFor="work">Work Location</FormLabel>
+          <FormLabel>Work Location</FormLabel>
 
           <Select
             onValueChange={field.onChange}

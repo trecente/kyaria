@@ -33,7 +33,7 @@ export function LocationField({
       name="location"
       render={({ field }) => (
         <FormItem>
-          <FormLabel htmlFor="location">Location</FormLabel>
+          <FormLabel>Location</FormLabel>
 
           <Select
             onValueChange={field.onChange}
