@@ -97,8 +97,8 @@ export function JobCard({
 
             <div className="mt-2 hidden md:block">
               <p className="break-all text-muted-foreground">
-                {description.length > 180
-                  ? `${description.slice(0, 180)}...`
+                {description.length > 150
+                  ? `${description.slice(0, 150)}...`
                   : description}
               </p>
             </div>
