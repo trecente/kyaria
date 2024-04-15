@@ -31,7 +31,7 @@ export function JobCard({
         <div className="relative">
           <div className="absolute right-0 md:right-auto">
             <Image
-              src={companyLogo ?? companyLogoDefault}
+              src={companyLogo || companyLogoDefault}
               alt={`${companyName} Logo`}
               className="aspect-square rounded-lg"
               width={50}
@@ -42,7 +42,7 @@ export function JobCard({
           <div className="absolute right-0 hidden rounded-md bg-blue-600/[0.1] p-1.5 md:block">
             <div className="flex items-center gap-1 font-medium text-blue-600">
               <Earth className="size-5 shrink-0" strokeWidth={1.5} />
-              <p className="text-sm">{location ?? "Worldwide"}</p>
+              <p className="text-sm">{location || "Worldwide"}</p>
             </div>
           </div>
 
@@ -91,7 +91,7 @@ export function JobCard({
 
               <div className="flex items-center gap-1 md:hidden">
                 <Earth className="size-6 shrink-0" strokeWidth={1.5} />
-                <p>{location ?? "Worldwide"}</p>
+                <p>{location || "Worldwide"}</p>
               </div>
             </div>
 
