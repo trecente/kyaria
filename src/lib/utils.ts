@@ -1,7 +1,6 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
+import { type ClassValue, clsx } from "clsx";
 import { formatDistanceToNowStrict } from "date-fns";
+import { twMerge } from "tailwind-merge";
 
 import { FilterType, filterSchema } from "./schemas";
 
@@ -51,4 +50,15 @@ export function validateFilterParams(
     console.error(`Unexpected error during validation: ${error}`);
     return null;
   }
+}
+
+export function toSlug(title: string): string {
+  const lowerCaseStr = title.toLowerCase();
+
+  const replacedWhitespace = lowerCaseStr.replace(/ /g, "-");
+
+  const regex = /[^\w-]/g;
+  const removedSpecialCharacters = replacedWhitespace.replace(regex, "");
+
+  return removedSpecialCharacters;
 }
