@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-
 import { Inter as FontSans } from "next/font/google";
-
-import { Providers } from "./providers";
-
-import { Header } from "@/components/header";
-import { Wrapper } from "@/components/wrapper";
 
 import { cn } from "@/lib/utils";
 
 import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { Toaster } from "@/components/ui/sonner";
+import { Wrapper } from "@/components/wrapper";
+
+import { Providers } from "./providers";
 import "@/styles/globals.css";
 
 const fontSans = FontSans({
@@ -30,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "flex min-h-screen flex-col font-sans antialiased",
@@ -48,6 +47,7 @@ export default function RootLayout({
             <main>{children}</main>
           </Wrapper>
 
+          <Toaster />
           <Footer />
         </Providers>
       </body>
