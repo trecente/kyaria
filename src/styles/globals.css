@@ -70,6 +70,7 @@
   * {
     @apply border-border;
     @apply scrollbar;
+    @apply tiptap;
   }
   body {
     @apply bg-background text-foreground;
@@ -86,5 +87,12 @@
   .scrollbar::-webkit-scrollbar-thumb {
     background-color: #888888;
     border-radius: 4px;
+  }
+  .tiptap p.is-editor-empty:first-child::before {
+    color: hsl(var(--muted-foreground));
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
   }
 }
