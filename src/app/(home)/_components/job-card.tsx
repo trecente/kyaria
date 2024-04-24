@@ -2,7 +2,11 @@ import { Job } from "@prisma/client";
 import { Calendar, Clock, Earth, MapPin, Wallet } from "lucide-react";
 import Image from "next/image";
 
-import { formatCurrency, formatDateToRelativeString } from "@/lib/utils";
+import {
+  formatCurrency,
+  formatDateToRelativeString,
+  verifyImageUrl,
+} from "@/lib/utils";
 
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -12,7 +16,7 @@ interface JobCardProps {
   job: Job;
 }
 
-export function JobCard({
+export async function JobCard({
   job: {
     title,
     description,
@@ -25,13 +29,18 @@ export function JobCard({
     createdAt,
   },
 }: JobCardProps) {
+  let companyLogoUrl: string | undefined;
+  if (companyLogo) {
+    companyLogoUrl = await verifyImageUrl(companyLogo);
+  }
+
   return (
     <Card className="cursor-pointer">
       <CardContent className="p-6">
         <div className="relative">
           <div className="absolute right-0 md:right-auto">
             <Image
-              src={companyLogo || companyLogoDefault}
+              src={companyLogoUrl || companyLogoDefault}
               alt={`${companyName} Logo`}
               className="aspect-square rounded-lg"
               width={50}
