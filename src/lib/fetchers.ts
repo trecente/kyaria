@@ -1,9 +1,6 @@
-"use server";
-
-import { prisma } from "./prisma";
-
 import { Job, Prisma } from "@prisma/client";
 
+import { prisma } from "./prisma";
 import { FilterType } from "./schemas";
 
 export async function getJobs(searchParams: FilterType): Promise<Job[]> {
