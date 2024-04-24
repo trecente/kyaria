@@ -1,4 +1,5 @@
 import { Job, Prisma } from "@prisma/client";
+import { list } from "@vercel/blob";
 
 import { prisma } from "./prisma";
 import { FilterType } from "./schemas";
@@ -60,6 +61,17 @@ export async function getDistinctLocations(): Promise<string[]> {
       .filter(Boolean) as string[];
   } catch (error) {
     console.error(`Failed to fetch locations: ${error}`);
+    return [];
+  }
+}
+
+export async function getImages(): Promise<string[]> {
+  try {
+    const { blobs } = await list();
+
+    return blobs.map(({ url }) => url).filter(Boolean) as string[];
+  } catch (error) {
+    console.error(`Failed to fetch images: ${error}`);
     return [];
   }
 }
