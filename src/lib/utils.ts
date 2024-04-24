@@ -1,5 +1,7 @@
+import { list } from "@vercel/blob";
 import { type ClassValue, clsx } from "clsx";
 import { formatDistanceToNowStrict } from "date-fns";
+import { cache } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { FilterType, filterSchema } from "./schemas";
@@ -62,3 +64,18 @@ export function toSlug(title: string): string {
 
   return removedSpecialCharacters;
 }
+
+export const verifyImageUrl = cache(
+  async (imageUrl: string): Promise<string | undefined> => {
+    try {
+      const images = await list();
+
+      const validImage = images.blobs.find((image) => image.url === imageUrl);
+
+      return validImage ? validImage.url : undefined;
+    } catch (error) {
+      console.error(`Failed to verify image URL: ${error}`);
+      return undefined;
+    }
+  },
+);
