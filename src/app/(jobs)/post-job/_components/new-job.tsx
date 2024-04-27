@@ -77,7 +77,7 @@ export function NewJob() {
           <h1 className="whitespace-nowrap text-lg font-semibold tracking-tight">
             Post a Job
           </h1>
-          <div className="ml-auto">
+          <div className="ml-auto hidden md:block">
             <Button variant="outline" disabled={isSubmitting}>
               {isSubmitting ? (
                 <LoaderCircle className="h-6 animate-spin" />
@@ -87,7 +87,7 @@ export function NewJob() {
             </Button>
           </div>
         </div>
-        <div className="grid grid-cols-[1fr_16rem] gap-4">
+        <div className="grid gap-4 md:grid-cols-[1fr_16rem]">
           <div className="flex flex-col gap-4">
             <JobDetails control={control} isSubmitting={isSubmitting} />
             <JobApplication
@@ -101,6 +101,18 @@ export function NewJob() {
             <JobLocation control={control} isSubmitting={isSubmitting} />
           </div>
         </div>
+
+        <Button
+          className="w-full md:hidden"
+          variant="secondary"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <LoaderCircle className="h-6 animate-spin" />
+          ) : (
+            "Publish Job"
+          )}
+        </Button>
       </form>
     </Form>
   );
