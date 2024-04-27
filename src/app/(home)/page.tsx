@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+import { HeroSection } from "@/components/hero";
+
 import { Filter } from "./_components/filter";
 import { JobList } from "./_components/job-list";
 import { Skeletons } from "./_components/skeletons";
@@ -20,15 +22,12 @@ export function generateMetadata({ searchParams: { q } }: HomeProps): Metadata {
 export default function Home({ searchParams }: HomeProps) {
   return (
     <>
-      <div className="mx-auto max-w-sm space-y-2 py-10 text-center sm:max-w-xl sm:space-y-2 sm:py-14 md:max-w-3xl md:space-y-4 md:py-20">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-          Find your <span className="text-blue-600">new job</span> today.
-        </h1>
-        <p className="text-base text-muted-foreground md:text-xl">
-          Thousands of jobs in the computer, engineering and technology sectors
-          are waiting for you.
-        </p>
-      </div>
+      <HeroSection
+        title="Find your new job today"
+        subtitle="Thousands of jobs in the computer, engineering and technology sectors
+        are waiting for you."
+        highlight="new job"
+      />
 
       <div className="grid-cols-[15rem_1fr_15rem] gap-4 xl:grid">
         <aside className="h-fit xl:sticky xl:top-0">
