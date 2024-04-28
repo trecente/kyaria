@@ -8,6 +8,7 @@ import {
   verifyImageUrl,
 } from "@/lib/utils";
 
+import { Markdown } from "@/components/markdown";
 import { Card, CardContent } from "@/components/ui/card";
 
 import companyLogoDefault from "@/assets/logo.svg";
@@ -105,11 +106,7 @@ export async function JobCard({
             </div>
 
             <div className="mt-2 hidden md:block">
-              <p className="break-all text-muted-foreground">
-                {description.length > 150
-                  ? `${description.slice(0, 150)}...`
-                  : description}
-              </p>
+              <Markdown className="line-clamp-2 text-muted-foreground">{`${description}...`}</Markdown>
             </div>
           </div>
         </div>
