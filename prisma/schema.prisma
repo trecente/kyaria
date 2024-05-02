@@ -16,6 +16,8 @@ model Job {
   companyLogo      String?  @map("company_logo")
   slug             String   @unique
   type             String
+  education        String?
+  jobLevel         String?  @map("job_level")
   location         String?
   locationType     String   @map("location_type")
   description      String
