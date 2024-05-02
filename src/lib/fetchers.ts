@@ -1,5 +1,7 @@
 import { Job, Prisma } from "@prisma/client";
 import { list } from "@vercel/blob";
+import { notFound } from "next/navigation";
+import { cache } from "react";
 
 import { prisma } from "./prisma";
 import { FilterType } from "./schemas";
@@ -75,3 +77,34 @@ export async function getImages(): Promise<string[]> {
     return [];
   }
 }
+
+export async function getSlugs(): Promise<string[]> {
+  try {
+    const slugs = await prisma.job.findMany({
+      where: { approved: true },
+      select: { slug: true },
+    });
+
+    return slugs.map(({ slug }) => slug);
+  } catch (error) {
+    console.error(`Failed to fetch slugs: ${error}`);
+    return [];
+  }
+}
+
+export const getJobBySlug = cache(async (slug: string): Promise<Job> => {
+  try {
+    const job = await prisma.job.findUnique({
+      where: {
+        slug,
+      },
+    });
+
+    if (!job) notFound();
+
+    return job;
+  } catch (error) {
+    console.error(`Failed to fetch job: ${error}`);
+    notFound();
+  }
+});
