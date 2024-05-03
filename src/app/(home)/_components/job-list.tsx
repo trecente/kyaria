@@ -11,11 +11,7 @@ export async function JobList({ searchParams }: { searchParams: FilterType }) {
   return (
     <div className="space-y-2">
       {jobs.map((job) => (
-        <Link
-          key={job.id}
-          href={job.slug}
-          className="block transition-all duration-100 hover:scale-[1.01]"
-        >
+        <Link key={job.id} href={job.slug} className="block">
           <JobCard job={job} />
         </Link>
       ))}

@@ -36,7 +36,7 @@ export async function JobCard({
   }
 
   return (
-    <Card className="cursor-pointer">
+    <Card className="cursor-pointer transition-all duration-100 hover:bg-primary-foreground">
       <CardContent className="p-6">
         <div className="relative">
           <div className="absolute right-0 md:right-auto">
