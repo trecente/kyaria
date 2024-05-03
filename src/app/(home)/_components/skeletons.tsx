@@ -1,5 +1,4 @@
 import { Card, CardContent } from "@/components/ui/card";
-
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function CardSkeleton() {
@@ -27,14 +26,10 @@ export function CardSkeleton() {
 
 export function Skeletons() {
   return (
-    <div className="space-y-4">
-      <Skeleton className="h-5 w-48" />
-
-      <div className="space-y-2">
-        <CardSkeleton />
-        <CardSkeleton />
-        <CardSkeleton />
-      </div>
+    <div className="space-y-2">
+      <CardSkeleton />
+      <CardSkeleton />
+      <CardSkeleton />
     </div>
   );
 }
