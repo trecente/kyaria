@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+import { getJobs } from "@/lib/fetchers";
+
 import { HeroSection } from "@/components/hero";
 
 import { Filter } from "./_components/filter";
@@ -19,7 +21,9 @@ export function generateMetadata({ searchParams: { q } }: HomeProps): Metadata {
   };
 }
 
-export default function Home({ searchParams }: HomeProps) {
+export default async function Home({ searchParams }: HomeProps) {
+  const jobs = await getJobs(searchParams);
+
   return (
     <>
       <HeroSection
@@ -29,13 +33,20 @@ export default function Home({ searchParams }: HomeProps) {
         highlight="new job"
       />
 
-      <div className="grid-cols-[15rem_1fr_15rem] gap-4 xl:grid">
+      <div className="mt-5 grid-cols-[15rem_1fr_15rem] gap-4 xl:grid">
         <aside className="h-fit xl:sticky xl:top-0">
           <Filter />
         </aside>
-        <Suspense fallback={<Skeletons />}>
-          <JobList searchParams={searchParams} />
-        </Suspense>
+
+        {jobs.length > 0 ? (
+          <Suspense fallback={<Skeletons />}>
+            <JobList searchParams={searchParams} />
+          </Suspense>
+        ) : (
+          <div className="flex items-center justify-center py-32 xl:py-0">
+            <h1 className="text-xl font-semibold">Jobs not found.</h1>
+          </div>
+        )}
       </div>
     </>
   );
