@@ -53,6 +53,8 @@ export async function createJob(formData: FormData): Promise<void> {
     location,
     work: locationType,
     salary,
+    education,
+    jobLevel,
     applicationEmail,
     applicationUrl,
   } = validatedFields.data;
@@ -88,6 +90,8 @@ export async function createJob(formData: FormData): Promise<void> {
         type,
         location,
         locationType,
+        education,
+        jobLevel,
         companyName: companyName.trim(),
         companyLogo: companyLogoUrl,
         applicationEmail: applicationEmail?.trim(),
