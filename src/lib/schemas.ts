@@ -1,21 +1,21 @@
 import { z } from "zod";
 
+import {
+  EDUCATION_TYPE_OPTIONS,
+  EMPLOYMENT_TYPES,
+  LEVEL_OPTIONS,
+  WORK_LOCATIONS,
+} from "./constants";
+
 export const filterSchema = z.object({
   q: z
     .string()
     .max(100, { message: "Search query cannot exceed 100 characters" })
     .optional(),
   location: z.string().optional(),
-  work: z.enum(["Any", "Remote", "Hybrid", "On-site"]).optional(),
+  work: z.enum(["Any", ...WORK_LOCATIONS] as [string, ...string[]]).optional(),
   employment: z
-    .enum([
-      "Any",
-      "Full-Time",
-      "Part-Time",
-      "Contract",
-      "Temporary",
-      "Internship",
-    ])
+    .enum(["Any", ...EMPLOYMENT_TYPES] as [string, ...string[]])
     .optional(),
 });
 
@@ -27,7 +27,7 @@ const locationSchema = z
       .string()
       .max(100, { message: "Location cannot exceed 100 characters" })
       .optional(),
-    work: z.enum(["Remote", "Hybrid", "On-site"], {
+    work: z.enum(WORK_LOCATIONS as [string, ...string[]], {
       errorMap: () => ({ message: "Work location is required" }),
     }),
   })
@@ -80,7 +80,7 @@ export const createJobSchema = z
       .string({
         required_error: "Title is required",
       })
-      .min(10, { message: "Title must be at least 10 characters long" })
+      .min(3, { message: "Title must be at least 3 characters long" })
       .max(100, { message: "Title cannot exceed 100 characters" }),
     description: z
       .string({
@@ -97,12 +97,15 @@ export const createJobSchema = z
         message: "Salary must be a number",
       })
       .max(9, { message: "Salary cannot exceed 9 numeric characters" }),
-    employment: z.enum(
-      ["Full-Time", "Part-Time", "Contract", "Temporary", "Internship"],
-      {
-        errorMap: () => ({ message: "Employment type is required" }),
-      },
-    ),
+    employment: z.enum(EMPLOYMENT_TYPES as [string, ...string[]], {
+      errorMap: () => ({ message: "Employment type is required" }),
+    }),
+    education: z.enum(EDUCATION_TYPE_OPTIONS as [string, ...string[]], {
+      errorMap: () => ({ message: "Education type is required" }),
+    }),
+    jobLevel: z.enum(LEVEL_OPTIONS as [string, ...string[]], {
+      errorMap: () => ({ message: "Level is required" }),
+    }),
   })
   .and(locationSchema)
   .and(applicationSchema);
