@@ -32,6 +32,8 @@ export function NewJob() {
       location: "",
       applicationUrl: "",
       applicationEmail: "",
+      education: undefined,
+      jobLevel: undefined,
       employment: undefined,
       work: undefined,
     },
