@@ -14,8 +14,8 @@ import { formatDateToRelativeString } from "@/lib/utils";
 interface OverviewProps {
   details: {
     companyName: string;
-    education: string | null;
-    jobLevel: string | null;
+    education: string;
+    jobLevel: string;
     locationType: string;
     createdAt: Date;
     updatedAt: Date;
@@ -47,12 +47,12 @@ export function Overview({
     {
       title: "Level",
       icon: Layers,
-      value: jobLevel || "Not specified",
+      value: jobLevel,
     },
     {
       title: "Education",
       icon: BriefcaseBusiness,
-      value: education || "Not specified",
+      value: education,
     },
     {
       title: "Work Location",
@@ -75,7 +75,7 @@ export function Overview({
     <div key={title} className="flex flex-col items-center overflow-hidden">
       <Icon strokeWidth={1.5} className="text-blue-600 dark:text-blue-500" />
       <small className="mt-2 font-medium text-muted-foreground">{title}</small>
-      <p className="text-sm font-semibold">{value}</p>
+      <p className="text-center text-sm font-semibold">{value}</p>
     </div>
   ));
 }
