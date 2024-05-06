@@ -13,15 +13,11 @@ export const EMPLOYMENT_TYPES: Readonly<string[]> = [
 ];
 
 export const EDUCATION_TYPE_OPTIONS: Readonly<string[]> = [
-  "High school",
-  "Associate's degree",
-  "Bachelor's degree",
-  "Master's degree",
-  "Doctoral degree (PhD)",
+  "High School",
+  "Associate's Degree",
+  "Bachelor's Degree",
+  "Master's Degree",
+  "Doctoral Degree (PhD)",
 ];
 
-export const LEVEL_OPTIONS: Readonly<string[]> = [
-  "Entry-level",
-  "Mid-level",
-  "Senior-level",
-];
+export const LEVEL_OPTIONS: Readonly<string[]> = ["Entry", "Mid", "Senior"];
