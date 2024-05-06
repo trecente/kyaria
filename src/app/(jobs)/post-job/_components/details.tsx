@@ -23,7 +23,7 @@ interface JobDetailsProps {
 
 export function JobDetails({ control, isSubmitting }: JobDetailsProps) {
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader className="pb-3">
         <CardTitle>Details</CardTitle>
         <CardDescription>Add the job details.</CardDescription>

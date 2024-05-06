@@ -109,7 +109,7 @@ export function Details({
                   <small className="text-muted-foreground">Yearly Salary</small>
                 </div>
 
-                <div className="flex flex-1 flex-col items-center overflow-hidden px-2">
+                <div className="flex flex-1 flex-col items-center overflow-hidden px-3">
                   <Map
                     strokeWidth={1.5}
                     className="text-blue-600 dark:text-blue-500"

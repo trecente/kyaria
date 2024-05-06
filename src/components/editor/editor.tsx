@@ -31,7 +31,7 @@ export function Editor({ onChange }: EditorProps) {
     editorProps: {
       attributes: {
         class:
-          "border prose dark:prose-invert min-w-full rounded-md min-h-[400px] bg-background p-4 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+          "border prose dark:prose-invert min-w-full min-h-[245px] max-h-[245px] rounded-md overflow-y-auto bg-background p-4 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
       },
     },
     onUpdate({ editor }) {
