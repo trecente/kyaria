@@ -106,7 +106,7 @@ export async function JobCard({
             </div>
 
             <div className="mt-2 hidden md:block">
-              <Markdown className="line-clamp-2 text-muted-foreground">{`${description}...`}</Markdown>
+              <Markdown className="line-clamp-2 break-all text-muted-foreground">{`${description}...`}</Markdown>
             </div>
           </div>
         </div>
