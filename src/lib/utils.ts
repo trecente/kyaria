@@ -53,15 +53,14 @@ export function validateFilterParams(
   }
 }
 
-export function toSlug(title: string): string {
-  const lowerCaseStr = title.toLowerCase();
+export function toSlug(title: string, company: string): string {
+  const sanitize = (str: string): string =>
+    str.toLowerCase().replace(/[^A-Za-z0-9-]/g, "");
 
-  const replacedWhitespace = lowerCaseStr.replace(/ /g, "-");
+  const titleSlug = sanitize(title).replace(/\s+/g, "-");
+  const companySlug = sanitize(company).replace(/\s+/g, "-");
 
-  const regex = /[^\w-]/g;
-  const removedSpecialCharacters = replacedWhitespace.replace(regex, "");
-
-  return removedSpecialCharacters;
+  return `${titleSlug}-at-${companySlug}`;
 }
 
 export async function verifyImageUrl(

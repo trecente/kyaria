@@ -59,7 +59,7 @@ export async function createJob(formData: FormData): Promise<void> {
     applicationUrl,
   } = validatedFields.data;
 
-  const slug = `${toSlug(title)}-${nanoid(10)}`;
+  const slug = `${toSlug(title, companyName)}-${nanoid(10)}`;
 
   const formattedSalary = salary.replace(/[$,]/g, "");
 
