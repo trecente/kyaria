@@ -93,8 +93,8 @@ export const createJobSchema = z
         required_error: "Salary is required",
       })
       .min(3, { message: "Salary must be at least 3 numeric characters" })
-      .regex(/^\d+$/, {
-        message: "Salary must be a number",
+      .regex(/^\$(?:\d{1,3}(?:\,\d{3})*|\d*)(?:\.\d{0,2})?$/, {
+        message: "Salary must be a valid currency format",
       })
       .max(9, { message: "Salary cannot exceed 9 numeric characters" }),
     employment: z.enum(EMPLOYMENT_TYPES as [string, ...string[]], {
