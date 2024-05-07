@@ -9,7 +9,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { MaskInput } from "@/components/ui/mask-input";
 
 interface SalaryFieldProps {
   control: Control<CreateJobType>;
@@ -26,10 +26,9 @@ export function SalaryField({ control, isSubmitting }: SalaryFieldProps) {
           <FormLabel>Salary</FormLabel>
 
           <FormControl>
-            <Input
+            <MaskInput
               {...field}
               placeholder="e.g. $120,000"
-              type="number"
               disabled={isSubmitting}
             />
           </FormControl>
