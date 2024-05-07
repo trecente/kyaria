@@ -23,7 +23,7 @@ export function SalaryField({ control, isSubmitting }: SalaryFieldProps) {
       name="salary"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Salary</FormLabel>
+          <FormLabel required>Salary</FormLabel>
 
           <FormControl>
             <MaskInput

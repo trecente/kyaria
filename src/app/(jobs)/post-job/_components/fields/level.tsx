@@ -30,7 +30,7 @@ export function LevelField({ control, isSubmitting }: LevelFieldProps) {
       name="jobLevel"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Level</FormLabel>
+          <FormLabel required>Level</FormLabel>
 
           <Select
             onValueChange={field.onChange}

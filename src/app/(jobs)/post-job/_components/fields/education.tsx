@@ -30,7 +30,7 @@ export function EducationField({ control, isSubmitting }: EducationFieldProps) {
       name="education"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Education</FormLabel>
+          <FormLabel required>Education</FormLabel>
 
           <Select
             onValueChange={field.onChange}

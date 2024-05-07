@@ -22,7 +22,7 @@ export function DescriptionField({ control }: DescriptionFieldProps) {
       name="description"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Description</FormLabel>
+          <FormLabel required>Description</FormLabel>
 
           <FormControl>
             <Editor onChange={field.onChange} />

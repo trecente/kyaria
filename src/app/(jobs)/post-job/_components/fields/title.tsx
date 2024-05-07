@@ -23,7 +23,7 @@ export function TitleField({ control, isSubmitting }: TitleFieldProps) {
       name="title"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Title</FormLabel>
+          <FormLabel required>Title</FormLabel>
 
           <FormControl>
             <Input
