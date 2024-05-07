@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { Transition } from "@/components/transition";
 import { Toaster } from "@/components/ui/sonner";
 import { Wrapper } from "@/components/wrapper";
 
@@ -44,7 +45,7 @@ export default function RootLayout({
           <Wrapper>
             <Header />
 
-            <main>{children}</main>
+            <Transition>{children}</Transition>
           </Wrapper>
 
           <Toaster />
