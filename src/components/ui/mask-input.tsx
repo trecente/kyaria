@@ -15,7 +15,6 @@ export function MaskInput({ className, type, ...props }: MaskInputProps) {
       prefix="$"
       allowNegative={false}
       thousandSeparator=","
-      allowLeadingZeros
       {...props}
     />
   );
