@@ -61,6 +61,8 @@ export async function createJob(formData: FormData): Promise<void> {
 
   const slug = `${toSlug(title)}-${nanoid(10)}`;
 
+  const formattedSalary = salary.replace(/[$,]/g, "");
+
   let companyLogoUrl: string | undefined;
 
   if (companyLogo) {
@@ -97,7 +99,7 @@ export async function createJob(formData: FormData): Promise<void> {
         applicationEmail: applicationEmail?.trim(),
         applicationUrl: applicationUrl?.trim(),
         description: description.trim(),
-        salary: parseInt(salary),
+        salary: parseInt(formattedSalary),
       },
     });
   } catch (error: unknown) {
