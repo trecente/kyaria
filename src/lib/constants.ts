@@ -4,7 +4,7 @@ export const WORK_LOCATIONS: Readonly<string[]> = [
   "On-site",
 ];
 
-export const EMPLOYMENT_TYPES: Readonly<string[]> = [
+export const EMPLOYMENT_TYPES_OPTIONS: Readonly<string[]> = [
   "Full-Time",
   "Part-Time",
   "Contract",
@@ -12,7 +12,7 @@ export const EMPLOYMENT_TYPES: Readonly<string[]> = [
   "Internship",
 ];
 
-export const EDUCATION_TYPE_OPTIONS: Readonly<string[]> = [
+export const EDUCATION_DEGREES_OPTIONS: Readonly<string[]> = [
   "High School",
   "Associate's Degree",
   "Bachelor's Degree",
@@ -20,4 +20,13 @@ export const EDUCATION_TYPE_OPTIONS: Readonly<string[]> = [
   "Doctoral Degree (PhD)",
 ];
 
-export const LEVEL_OPTIONS: Readonly<string[]> = ["Entry", "Mid", "Senior"];
+export const WORK_EXPERIENCE_OPTIONS: Readonly<string[]> = [
+  "Junior",
+  "Associate",
+  "Intermediate",
+  "Senior",
+  "Lead",
+  "Manager",
+  "Director",
+  "Executive",
+];
