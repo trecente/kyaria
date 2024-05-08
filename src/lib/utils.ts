@@ -55,10 +55,13 @@ export function validateFilterParams(
 
 export function toSlug(title: string, company: string): string {
   const sanitize = (str: string): string =>
-    str.toLowerCase().replace(/[^A-Za-z0-9-]/g, "");
+    str
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
 
-  const titleSlug = sanitize(title).replace(/\s+/g, "-");
-  const companySlug = sanitize(company).replace(/\s+/g, "-");
+  const titleSlug = sanitize(title);
+  const companySlug = sanitize(company);
 
   return `${titleSlug}-at-${companySlug}`;
 }
