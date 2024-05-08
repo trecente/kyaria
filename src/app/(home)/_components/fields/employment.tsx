@@ -1,6 +1,6 @@
 import { Control } from "react-hook-form";
 
-import { EMPLOYMENT_TYPES } from "@/lib/constants";
+import { EMPLOYMENT_TYPES_OPTIONS } from "@/lib/constants";
 import { FilterType } from "@/lib/schemas";
 
 import {
@@ -47,7 +47,7 @@ export function EmploymentField({
 
             <SelectContent>
               <SelectItem value="Any">Any</SelectItem>
-              {EMPLOYMENT_TYPES.map((type) => (
+              {EMPLOYMENT_TYPES_OPTIONS.map((type) => (
                 <SelectItem key={type} value={type}>
                   {type}
                 </SelectItem>

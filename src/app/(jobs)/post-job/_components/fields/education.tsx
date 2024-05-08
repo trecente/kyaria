@@ -1,6 +1,6 @@
 import { Control } from "react-hook-form";
 
-import { EDUCATION_TYPE_OPTIONS } from "@/lib/constants";
+import { EDUCATION_DEGREES_OPTIONS } from "@/lib/constants";
 import { CreateJobType } from "@/lib/schemas";
 
 import {
@@ -44,7 +44,7 @@ export function EducationField({ control, isSubmitting }: EducationFieldProps) {
             </FormControl>
 
             <SelectContent>
-              {EDUCATION_TYPE_OPTIONS.map((type) => (
+              {EDUCATION_DEGREES_OPTIONS.map((type) => (
                 <SelectItem key={type} value={type}>
                   {type}
                 </SelectItem>
