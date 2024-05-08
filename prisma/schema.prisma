@@ -17,7 +17,7 @@ model Job {
   slug             String   @unique
   type             String
   education        String
-  jobLevel         String   @map("job_level")
+  experience       String
   location         String?
   locationType     String   @map("location_type")
   description      String

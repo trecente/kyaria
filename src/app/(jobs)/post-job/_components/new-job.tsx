@@ -33,7 +33,7 @@ export function NewJob() {
       applicationUrl: "",
       applicationEmail: "",
       education: undefined,
-      jobLevel: undefined,
+      experience: undefined,
       employment: undefined,
       work: undefined,
     },

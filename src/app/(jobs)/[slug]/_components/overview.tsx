@@ -15,7 +15,7 @@ interface OverviewProps {
   details: {
     companyName: string;
     education: string;
-    jobLevel: string;
+    experience: string;
     locationType: string;
     createdAt: Date;
     updatedAt: Date;
@@ -32,7 +32,7 @@ export function Overview({
   details: {
     companyName,
     education,
-    jobLevel,
+    experience,
     locationType,
     createdAt,
     updatedAt,
@@ -45,9 +45,9 @@ export function Overview({
       value: companyName,
     },
     {
-      title: "Level",
+      title: "Experience",
       icon: Layers,
-      value: jobLevel,
+      value: experience,
     },
     {
       title: "Education",

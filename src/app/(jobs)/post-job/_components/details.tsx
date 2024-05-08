@@ -12,7 +12,7 @@ import {
 
 import { DescriptionField } from "./fields/description";
 import { EducationField } from "./fields/education";
-import { LevelField } from "./fields/level";
+import { ExperienceField } from "./fields/experience";
 import { SalaryField } from "./fields/salary";
 import { TitleField } from "./fields/title";
 
@@ -34,7 +34,7 @@ export function JobDetails({ control, isSubmitting }: JobDetailsProps) {
           <SalaryField control={control} isSubmitting={isSubmitting} />
           <div className="grid grid-cols-2 gap-2">
             <EducationField control={control} isSubmitting={isSubmitting} />
-            <LevelField control={control} isSubmitting={isSubmitting} />
+            <ExperienceField control={control} isSubmitting={isSubmitting} />
           </div>
           <DescriptionField control={control} />
         </div>

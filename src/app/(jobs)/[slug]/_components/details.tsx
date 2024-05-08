@@ -28,7 +28,7 @@ export function Details({
     companyLogo,
     companyName,
     education,
-    jobLevel,
+    experience,
     location,
     locationType,
     applicationEmail,
@@ -130,7 +130,7 @@ export function Details({
                   details={{
                     companyName,
                     education,
-                    jobLevel,
+                    experience,
                     locationType,
                     createdAt,
                     updatedAt,

@@ -1,6 +1,6 @@
 import { Control } from "react-hook-form";
 
-import { LEVEL_OPTIONS } from "@/lib/constants";
+import { WORK_EXPERIENCE_OPTIONS } from "@/lib/constants";
 import { CreateJobType } from "@/lib/schemas";
 
 import {
@@ -18,19 +18,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-interface LevelFieldProps {
+interface ExperienceFieldProps {
   control: Control<CreateJobType>;
   isSubmitting: boolean;
 }
 
-export function LevelField({ control, isSubmitting }: LevelFieldProps) {
+export function ExperienceField({
+  control,
+  isSubmitting,
+}: ExperienceFieldProps) {
   return (
     <FormField
       control={control}
-      name="jobLevel"
+      name="experience"
       render={({ field }) => (
         <FormItem>
-          <FormLabel required>Level</FormLabel>
+          <FormLabel required>Experience</FormLabel>
 
           <Select
             onValueChange={field.onChange}
@@ -39,12 +42,12 @@ export function LevelField({ control, isSubmitting }: LevelFieldProps) {
           >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Select a level" />
+                <SelectValue placeholder="Select an experience" />
               </SelectTrigger>
             </FormControl>
 
             <SelectContent>
-              {LEVEL_OPTIONS.map((type) => (
+              {WORK_EXPERIENCE_OPTIONS.map((type) => (
                 <SelectItem key={type} value={type}>
                   {type}
                 </SelectItem>
