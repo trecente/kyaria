@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 import {
-  EDUCATION_TYPE_OPTIONS,
-  EMPLOYMENT_TYPES,
-  LEVEL_OPTIONS,
+  EDUCATION_DEGREES_OPTIONS,
+  EMPLOYMENT_TYPES_OPTIONS,
+  WORK_EXPERIENCE_OPTIONS,
   WORK_LOCATIONS,
 } from "./constants";
 
@@ -15,7 +15,7 @@ export const filterSchema = z.object({
   location: z.string().optional(),
   work: z.enum(["Any", ...WORK_LOCATIONS] as [string, ...string[]]).optional(),
   employment: z
-    .enum(["Any", ...EMPLOYMENT_TYPES] as [string, ...string[]])
+    .enum(["Any", ...EMPLOYMENT_TYPES_OPTIONS] as [string, ...string[]])
     .optional(),
 });
 
@@ -97,14 +97,14 @@ export const createJobSchema = z
         message: "Salary must be a valid currency format",
       })
       .max(9, { message: "Salary cannot exceed 9 numeric characters" }),
-    employment: z.enum(EMPLOYMENT_TYPES as [string, ...string[]], {
+    employment: z.enum(EMPLOYMENT_TYPES_OPTIONS as [string, ...string[]], {
       errorMap: () => ({ message: "Employment type is required" }),
     }),
-    education: z.enum(EDUCATION_TYPE_OPTIONS as [string, ...string[]], {
+    education: z.enum(EDUCATION_DEGREES_OPTIONS as [string, ...string[]], {
       errorMap: () => ({ message: "Education type is required" }),
     }),
-    jobLevel: z.enum(LEVEL_OPTIONS as [string, ...string[]], {
-      errorMap: () => ({ message: "Level is required" }),
+    experience: z.enum(WORK_EXPERIENCE_OPTIONS as [string, ...string[]], {
+      errorMap: () => ({ message: "Experience is required" }),
     }),
   })
   .and(locationSchema)
