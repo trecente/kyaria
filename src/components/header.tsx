@@ -1,14 +1,13 @@
+import { EnvelopeClosedIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
 
-import Logo from "@/assets/logo.svg";
+import { buttonVariants } from "@/components/ui/button";
 
 import { MobileMenu } from "./mobile-menu";
 import { ToggleTheme } from "./toggle-theme";
-
-import { buttonVariants } from "@/components/ui/button";
-
-import { EnvelopeClosedIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import { Separator } from "./ui/separator";
+import Logo from "@/assets/logo.svg";
 
 export function Header() {
   return (
@@ -42,14 +41,16 @@ export function Header() {
         <div className="ml-auto">
           <MobileMenu />
 
-          <div className="hidden items-center gap-2 sm:flex">
-            <ToggleTheme />
+          <div className="hidden h-5 items-center space-x-4 sm:flex">
+            <ToggleTheme className="-mr-2" />
 
-            <span className="mr-2 h-6 w-px bg-gray-200 dark:bg-neutral-700" />
+            <Separator orientation="vertical" />
 
             <Link
               href="/post-job"
-              className={buttonVariants({ variant: "secondary" })}
+              className={buttonVariants({
+                variant: "secondary",
+              })}
             >
               Post a Job
             </Link>
