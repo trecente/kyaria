@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { getJobs } from "@/lib/fetchers";
 import { FilterType } from "@/lib/schemas";
 
@@ -9,11 +7,9 @@ export async function JobList({ searchParams }: { searchParams: FilterType }) {
   const jobs = await getJobs(searchParams);
 
   return (
-    <div className="space-y-2">
+    <div className="select-none space-y-4">
       {jobs.map((job) => (
-        <Link key={job.id} href={job.slug} className="block">
-          <JobCard job={job} />
-        </Link>
+        <JobCard key={job.id} job={job} />
       ))}
     </div>
   );

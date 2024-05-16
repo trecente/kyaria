@@ -34,7 +34,7 @@ export function ApplicationUrlField({
             <Input
               {...field}
               type="url"
-              placeholder="e.g. https://www.company.com"
+              placeholder="e.g. https://www.company.com/apply"
               disabled={isSubmitting}
               onChange={(e) => {
                 field.onChange(e);

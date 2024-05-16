@@ -3,22 +3,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { createJob } from "@/lib/actions";
 import { CreateJobType, createJobSchema } from "@/lib/schemas";
 
-import { Navigation } from "@/components/navigation";
+import { NavActions, NavContainer, NavHeading } from "@/components/nav";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
-import { JobApplication } from "./application";
-import { JobCompany } from "./company";
-import { JobDetails } from "./details";
-import { JobLocation } from "./location";
+import { Company } from "./cards/company";
+import { Details } from "./cards/details";
+import { Location } from "./cards/location";
 
-export function NewJob() {
+export function CreateJob() {
   const router = useRouter();
 
   const form = useForm<CreateJobType>({
@@ -46,7 +45,7 @@ export function NewJob() {
     formState: { isSubmitting },
   } = form;
 
-  const onSubmit = async (data: CreateJobType) => {
+  const onSubmit: SubmitHandler<CreateJobType> = async (data) => {
     const formData = new FormData();
 
     Object.entries(data).forEach(([key, value]: [string, unknown]) => {
@@ -67,40 +66,45 @@ export function NewJob() {
   return (
     <Form {...form}>
       <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Navigation title="Post Job">
-          <Button variant="outline" disabled={isSubmitting}>
-            {isSubmitting ? (
-              <LoaderCircle className="h-6 animate-spin" />
-            ) : (
-              "Publish Job"
-            )}
-          </Button>
-        </Navigation>
+        <NavContainer>
+          <NavHeading>Post a Job</NavHeading>
+          <NavActions>
+            <Button
+              variant="outline"
+              className="hidden md:flex"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <LoaderCircle className="h-6 animate-spin" />
+              ) : (
+                "Publish"
+              )}
+            </Button>
+          </NavActions>
+        </NavContainer>
 
         <div className="grid gap-4 md:grid-cols-[1fr_16rem]">
+          <Details
+            control={control}
+            trigger={trigger}
+            isSubmitting={isSubmitting}
+          />
+
           <div className="flex flex-col gap-4">
-            <JobDetails control={control} isSubmitting={isSubmitting} />
-            <JobApplication
-              control={control}
-              trigger={trigger}
-              isSubmitting={isSubmitting}
-            />
-          </div>
-          <div className="flex flex-col gap-4">
-            <JobCompany control={control} isSubmitting={isSubmitting} />
-            <JobLocation control={control} isSubmitting={isSubmitting} />
+            <Company control={control} isSubmitting={isSubmitting} />
+            <Location control={control} isSubmitting={isSubmitting} />
           </div>
         </div>
 
         <Button
+          variant="outline"
           className="w-full md:hidden"
-          variant="secondary"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
             <LoaderCircle className="h-6 animate-spin" />
           ) : (
-            "Publish Job"
+            "Publish"
           )}
         </Button>
       </form>

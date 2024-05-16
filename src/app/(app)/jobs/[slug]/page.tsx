@@ -1,10 +1,8 @@
 import { Metadata } from "next";
 
 import { getJobBySlug, getSlugs } from "@/lib/fetchers";
-import { formatDateToRelativeString } from "@/lib/utils";
 
-import { HeroSection } from "@/components/hero";
-import { Navigation } from "@/components/navigation";
+import { HeroDescription, HeroHeading, HeroSection } from "@/components/hero";
 
 import { Details } from "./_components/details";
 
@@ -34,16 +32,15 @@ export default async function Job({ params: { slug } }: JobProps) {
   const job = await getJobBySlug(slug);
 
   return (
-    <>
-      <HeroSection
-        title={job.title}
-        subtitle={`${job.companyName} is looking for a ${job.title} to join their team.`}
-      />
+    <div className="container">
+      <HeroSection className="mb-5 md:mb-7">
+        <HeroHeading>{job.title}</HeroHeading>
+        <HeroDescription>{`${job.companyName} is looking for a ${job.title} to join their team.`}</HeroDescription>
+      </HeroSection>
 
       <div className="grid gap-4">
-        <Navigation title="Details" />
         <Details job={job} />
       </div>
-    </>
+    </div>
   );
 }

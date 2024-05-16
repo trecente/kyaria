@@ -72,9 +72,11 @@ export function Overview({
   ];
 
   return overviewData.map(({ title, icon: Icon, value }) => (
-    <div key={title} className="flex flex-col items-center overflow-hidden">
-      <Icon strokeWidth={1.5} className="text-blue-600 dark:text-blue-500" />
-      <small className="mt-2 font-medium text-muted-foreground">{title}</small>
+    <div key={title} className="flex flex-col items-center break-all">
+      <Icon strokeWidth={1.5} />
+      <small className="mt-2 text-center font-medium text-muted-foreground">
+        {title}
+      </small>
       <p className="text-center text-sm font-semibold">{value}</p>
     </div>
   ));

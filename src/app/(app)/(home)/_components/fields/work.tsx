@@ -36,12 +36,12 @@ export function WorkLocationField({
 
           <Select
             onValueChange={field.onChange}
-            defaultValue={field.value ?? undefined}
+            defaultValue={field.value}
             disabled={isSubmitting}
           >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Select a work type" />
+                <SelectValue placeholder="Select a work location" />
               </SelectTrigger>
             </FormControl>
 

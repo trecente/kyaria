@@ -42,7 +42,7 @@ export function WorkLocationField({
           >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Select a work type" />
+                <SelectValue placeholder="Select a work location" />
               </SelectTrigger>
             </FormControl>
 

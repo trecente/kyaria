@@ -32,7 +32,7 @@ export function ApplicationEmailField({
             <Input
               {...field}
               type="email"
-              placeholder="e.g. contact@company.com"
+              placeholder="e.g. apply@company.com"
               disabled={isSubmitting}
             />
           </FormControl>

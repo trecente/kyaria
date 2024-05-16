@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -20,17 +19,10 @@ export function ApplyButton({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          className={buttonVariants({
-            variant: "secondary",
-            className: "hidden sm:flex",
-          })}
-        >
-          Apply Now <ArrowRight className="ml-1" strokeWidth={2} size={20} />
-        </Button>
+        <Button variant="outline">Apply Now</Button>
       </PopoverTrigger>
-      <PopoverContent className="w-32 p-0">
-        <div className="flex flex-col">
+      <PopoverContent className="w-28 p-0">
+        <div className="flex flex-col divide-y">
           <Link
             href={`mailto:${applicationEmail}`}
             className={buttonVariants({
@@ -41,7 +33,7 @@ export function ApplyButton({
           >
             Email
           </Link>
-          <div className="border-b" />
+
           <Link
             href={applicationUrl}
             className={buttonVariants({
