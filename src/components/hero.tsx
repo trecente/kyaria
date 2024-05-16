@@ -1,30 +1,64 @@
-interface HeroProps {
-  title: string;
-  subtitle: string;
-  highlight?: string;
+import { cn } from "@/lib/utils";
+
+export function HeroSection({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <section
+      className={cn(
+        "mx-auto flex max-w-[980px] flex-col items-center gap-2 py-12 pb-8 md:py-24 md:pb-14",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </section>
+  );
 }
 
-export function HeroSection({ title, subtitle, highlight }: HeroProps) {
-  const highlightRegex = highlight ? new RegExp(`(${highlight})`, "gi") : null;
-
-  const highlightedText = highlightRegex
-    ? title.split(highlightRegex).map((part, i) =>
-        highlightRegex.test(part) ? (
-          <span className="text-blue-600" key={i}>
-            {part}
-          </span>
-        ) : (
-          part
-        ),
-      )
-    : title;
-
+export function HeroHeading({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <div className="mx-auto max-w-sm space-y-2 py-10 text-center sm:max-w-xl sm:space-y-2 sm:py-14 md:max-w-3xl md:space-y-4 md:py-20">
-      <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-        {highlightedText}
-      </h1>
-      <p className="text-base text-muted-foreground md:text-xl">{subtitle}</p>
-    </div>
+    <h1
+      className={cn(
+        "text-center text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:leading-[1.1]",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+export function HeroDescription({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) {
+  return (
+    <p
+      className={cn(
+        "max-w-[750px] text-center text-lg text-muted-foreground",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+export function HeroActions({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn(
+        "flex w-full select-none items-center justify-center space-x-4 py-4 md:pb-10",
+        className,
+      )}
+      {...props}
+    />
   );
 }
