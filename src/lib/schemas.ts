@@ -98,10 +98,10 @@ export const createJobSchema = z
       })
       .max(9, { message: "Salary cannot exceed 9 numeric characters" }),
     employment: z.enum(EMPLOYMENT_TYPES_OPTIONS as [string, ...string[]], {
-      errorMap: () => ({ message: "Employment type is required" }),
+      errorMap: () => ({ message: "Employment Type is required" }),
     }),
     education: z.enum(EDUCATION_DEGREES_OPTIONS as [string, ...string[]], {
-      errorMap: () => ({ message: "Education type is required" }),
+      errorMap: () => ({ message: "Education is required" }),
     }),
     experience: z.enum(WORK_EXPERIENCE_OPTIONS as [string, ...string[]], {
       errorMap: () => ({ message: "Experience is required" }),
