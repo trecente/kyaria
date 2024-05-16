@@ -11,6 +11,7 @@
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
     "^@/lib/(.*)$",
+    "^@/hooks/(.*)$",
     "^@/components/(.*)$",
     "^@/app/(.*)$",
     "^./(.*)$"
