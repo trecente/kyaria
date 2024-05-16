@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { type ClassValue, clsx } from "clsx";
 import { formatDistanceToNowStrict } from "date-fns";
 import { twMerge } from "tailwind-merge";
@@ -79,4 +80,34 @@ export async function verifyImageUrl(
     console.error(`Failed to verify image URL: ${error}`);
     return undefined;
   }
+}
+
+export function createJobFilter(
+  searchParams: FilterType,
+): Prisma.JobWhereInput {
+  const { q, location, work: locationType, employment: type } = searchParams;
+
+  const searchQuery = q?.trim().split(/\s+/).filter(Boolean).join(" & ");
+
+  const searchFilters: Prisma.JobWhereInput = searchQuery
+    ? {
+        OR: [
+          { title: { search: searchQuery } },
+          { companyName: { search: searchQuery } },
+          { location: { search: searchQuery } },
+        ],
+      }
+    : {};
+
+  const filter: Prisma.JobWhereInput = {
+    AND: [
+      searchFilters,
+      location && { location: { equals: location } },
+      locationType && { locationType: { equals: locationType } },
+      type && { type: { equals: type } },
+      { approved: true },
+    ].filter(Boolean) as Prisma.JobWhereInput["AND"],
+  };
+
+  return filter;
 }
