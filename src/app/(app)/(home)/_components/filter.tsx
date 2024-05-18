@@ -33,6 +33,8 @@ interface FilterProps {
   locations: string[];
 }
 
+const FILTER_BREAKPOINT = 1280;
+
 export function Filter({ locations }: FilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -42,9 +44,7 @@ export function Filter({ locations }: FilterProps) {
   const [showFilter, setShowFilter] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    const shouldShowFilter = debouncedWidth && debouncedWidth > 1280;
-
-    setShowFilter(shouldShowFilter ? "filter" : undefined);
+    setShowFilter(debouncedWidth > FILTER_BREAKPOINT ? "filter" : undefined);
   }, [debouncedWidth]);
 
   const filterParams: FilterType = Object.fromEntries(searchParams.entries());
