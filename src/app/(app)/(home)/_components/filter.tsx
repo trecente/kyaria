@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ListFilter, LoaderCircle } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -34,6 +34,8 @@ interface FilterProps {
 }
 
 export function Filter({ locations }: FilterProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const { width } = useWindowSize();
   const debouncedWidth = useDebounce(width, 300);
 
@@ -45,14 +47,9 @@ export function Filter({ locations }: FilterProps) {
     setShowFilter(shouldShowFilter ? "filter" : undefined);
   }, [debouncedWidth]);
 
-  const searchParams = useSearchParams();
-
-  const filterParams = Object.fromEntries(searchParams.entries());
-
+  const filterParams: FilterType = Object.fromEntries(searchParams.entries());
   const validatedFilters = validateFilterParams(filterParams);
-
   const { q, location, work, employment } = validatedFilters ?? {};
-
   const selectedLocation = locations.find((prevLoc) => prevLoc === location);
 
   const form = useForm<FilterType>({
@@ -68,8 +65,23 @@ export function Filter({ locations }: FilterProps) {
   const {
     handleSubmit,
     control,
+    resetField,
     formState: { isSubmitting },
   } = form;
+
+  useEffect(() => {
+    const filterFields = ["q", "location", "work", "employment"];
+
+    const resetFields = () => {
+      filterFields.forEach((field) => {
+        if (!searchParams.has(field)) {
+          resetField(field as keyof FilterType);
+        }
+      });
+    };
+
+    resetFields();
+  }, [searchParams, resetField]);
 
   const onSubmit = async (data: FilterType) => {
     const formData = new FormData();
@@ -79,7 +91,9 @@ export function Filter({ locations }: FilterProps) {
     });
 
     try {
-      await filterJobs(formData);
+      const params = await filterJobs(formData);
+
+      router.push(`?${params}`);
     } catch (error) {
       toast.error("Something went wrong, please try again");
     }

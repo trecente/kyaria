@@ -2,34 +2,27 @@
 
 import { del, put } from "@vercel/blob";
 import { nanoid } from "nanoid";
-import { redirect } from "next/navigation";
 import path from "path";
 
 import { prisma } from "./prisma";
 import { createJobSchema, filterSchema } from "./schemas";
 import { toSlug } from "./utils";
 
-export async function filterJobs(formData: FormData): Promise<void | null> {
-  const validatedFields = filterSchema.safeParse(
+export async function filterJobs(formData: FormData): Promise<string> {
+  const validatedFields = filterSchema.parse(
     Object.fromEntries(formData.entries()),
   );
 
-  if (!validatedFields.success) return null;
-
-  const { q, location, work, employment } = validatedFields.data;
-
-  const parsedLocationName = location === "All" ? null : location;
-  const parsedWork = work === "Any" ? null : work;
-  const parsedEmployment = employment === "Any" ? null : employment;
+  const { q, location, work, employment } = validatedFields;
 
   const searchParams = new URLSearchParams({
     ...(q && { q: q.trim() }),
-    ...(parsedLocationName && { location: parsedLocationName }),
-    ...(parsedWork && { work: parsedWork }),
-    ...(parsedEmployment && { employment: parsedEmployment }),
+    ...(location !== "All" && { location }),
+    ...(work !== "Any" && { work }),
+    ...(employment !== "Any" && { employment }),
   });
 
-  redirect(`?${searchParams.toString()}`);
+  return searchParams.toString();
 }
 
 export async function createJob(formData: FormData): Promise<void> {
@@ -60,14 +53,14 @@ export async function createJob(formData: FormData): Promise<void> {
   } = validatedFields.data;
 
   const slug = `${toSlug(title, companyName)}-${nanoid(10)}`;
-
   const formattedSalary = salary.replace(/[$,]/g, "");
 
   let companyLogoUrl: string | undefined;
 
   if (companyLogo) {
+    const logoPath = `company_logos/${slug}${path.extname(companyLogo.name)}`;
+
     try {
-      const logoPath = `company_logos/${slug}${path.extname(companyLogo.name)}`;
       const { url } = await put(logoPath, companyLogo, {
         access: "public",
         addRandomSuffix: false,
