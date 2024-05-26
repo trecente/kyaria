@@ -13,9 +13,13 @@ import {
 
 interface DescriptionFieldProps {
   control: Control<CreateJobType>;
+  isSubmitting: boolean;
 }
 
-export function DescriptionField({ control }: DescriptionFieldProps) {
+export function DescriptionField({
+  control,
+  isSubmitting,
+}: DescriptionFieldProps) {
   return (
     <FormField
       control={control}
@@ -25,7 +29,7 @@ export function DescriptionField({ control }: DescriptionFieldProps) {
           <FormLabel required>Description</FormLabel>
 
           <FormControl>
-            <Editor onChange={field.onChange} />
+            <Editor onChange={field.onChange} isSubmitting={isSubmitting} />
           </FormControl>
           <FormMessage />
         </FormItem>

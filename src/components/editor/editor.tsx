@@ -4,15 +4,19 @@ import { Placeholder } from "@tiptap/extension-placeholder";
 import { Underline } from "@tiptap/extension-underline";
 import { BubbleMenu, EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
+import { useEffect } from "react";
 import { Markdown } from "tiptap-markdown";
+
+import { cn } from "@/lib/utils";
 
 import { EditorBubbleMenu } from "./editor-bubble-menu";
 
 interface EditorProps {
   onChange: (content: string) => void;
+  isSubmitting: boolean;
 }
 
-export function Editor({ onChange }: EditorProps) {
+export function Editor({ onChange, isSubmitting }: EditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -39,9 +43,20 @@ export function Editor({ onChange }: EditorProps) {
     },
   });
 
+  useEffect(() => {
+    if (isSubmitting) {
+      editor?.setEditable(false);
+    } else {
+      editor?.setEditable(true);
+    }
+  }, [isSubmitting, editor]);
+
   return (
     <>
-      <EditorContent editor={editor} />
+      <EditorContent
+        editor={editor}
+        className={cn(isSubmitting && "cursor-not-allowed opacity-50")}
+      />
       {editor && (
         <BubbleMenu
           className="overflow-hidden rounded-lg border border-input bg-background shadow-xl shadow-black/20"

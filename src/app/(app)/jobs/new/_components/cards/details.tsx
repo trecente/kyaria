@@ -37,7 +37,7 @@ export function Details({ control, trigger, isSubmitting }: DetailsProps) {
               isSubmitting={isSubmitting}
             />
           </div>
-          <DescriptionField control={control} />
+          <DescriptionField control={control} isSubmitting={isSubmitting} />
         </div>
       </CardContent>
     </Card>
