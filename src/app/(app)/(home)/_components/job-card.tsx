@@ -40,7 +40,7 @@ export async function JobCard({
           <div className="relative">
             <div className="absolute right-0 md:right-auto">
               <Avatar className="size-12 rounded-lg">
-                <AvatarImage src={companyLogoUrl} />
+                <AvatarImage src={companyLogoUrl} className="object-cover" />
                 <AvatarFallback className="rounded-lg">
                   {companyName.slice(0, 2).toUpperCase()}
                 </AvatarFallback>

@@ -74,7 +74,10 @@ export function Details({
             <CardContent className="p-6">
               <div className="flex flex-col items-center gap-1">
                 <Avatar className="size-12 rounded-lg">
-                  <AvatarImage src={companyLogo || ""} />
+                  <AvatarImage
+                    src={companyLogo || ""}
+                    className="object-cover"
+                  />
                   <AvatarFallback className="rounded-lg">
                     {companyName.slice(0, 2).toUpperCase()}
                   </AvatarFallback>

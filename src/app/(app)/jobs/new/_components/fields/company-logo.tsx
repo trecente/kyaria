@@ -97,7 +97,7 @@ export function CompanyLogoField({
                   onClick={() => inputFileRef.current?.click()}
                   src={previewUrl}
                   className={cn(
-                    "cursor-pointer",
+                    "cursor-pointer object-cover",
                     isSubmitting && "cursor-not-allowed opacity-50",
                   )}
                 />
