@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -38,14 +39,11 @@ export function CreateJob() {
     },
   });
 
-  const {
-    handleSubmit,
-    control,
-    trigger,
-    formState: { isSubmitting },
-  } = form;
+  const { handleSubmit, control, trigger } = form;
 
-  const onSubmit: SubmitHandler<CreateJobType> = async (data) => {
+  const [isSubmitting, startTransition] = useTransition();
+
+  const onSubmit: SubmitHandler<CreateJobType> = (data) => {
     const formData = new FormData();
 
     Object.entries(data).forEach(([key, value]: [string, unknown]) => {
@@ -53,11 +51,15 @@ export function CreateJob() {
     });
 
     try {
-      await createJob(formData);
-      toast.success("Job submitted successfully and will be reviewed.", {
-        duration: 5000,
+      startTransition(async () => {
+        await createJob(formData);
+
+        toast.success("Job submitted successfully and will be reviewed.", {
+          duration: 5000,
+        });
+
+        router.push("/");
       });
-      router.push("/");
     } catch (error: any) {
       toast.error(error.message);
     }

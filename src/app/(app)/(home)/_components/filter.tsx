@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ListFilter, LoaderCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -62,12 +62,7 @@ export function Filter({ locations }: FilterProps) {
     },
   });
 
-  const {
-    handleSubmit,
-    control,
-    resetField,
-    formState: { isSubmitting },
-  } = form;
+  const { handleSubmit, control, resetField } = form;
 
   useEffect(() => {
     const filterFields = ["q", "location", "work", "employment"];
@@ -83,7 +78,9 @@ export function Filter({ locations }: FilterProps) {
     resetFields();
   }, [searchParams, resetField]);
 
-  const onSubmit = async (data: FilterType) => {
+  const [isSubmitting, startTransition] = useTransition();
+
+  const onSubmit = (data: FilterType) => {
     const formData = new FormData();
 
     Object.entries(data).forEach(([key, value]) => {
@@ -91,9 +88,11 @@ export function Filter({ locations }: FilterProps) {
     });
 
     try {
-      const params = await filterJobs(formData);
+      startTransition(async () => {
+        const params = await filterJobs(formData);
 
-      router.push(`?${params}`);
+        router.push(`?${params}`);
+      });
     } catch (error) {
       toast.error("Something went wrong, please try again");
     }
