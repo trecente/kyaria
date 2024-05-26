@@ -72,7 +72,7 @@ export function Details({
         <div className="flex select-none flex-col gap-4">
           <Card>
             <CardContent className="p-6">
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center gap-1">
                 <Avatar className="size-12 rounded-lg">
                   <AvatarImage src={companyLogo || ""} />
                   <AvatarFallback className="rounded-lg">
@@ -80,7 +80,7 @@ export function Details({
                   </AvatarFallback>
                 </Avatar>
 
-                <div className="flex flex-col items-center space-y-2">
+                <div className="flex flex-col items-center">
                   <h1 className="text-base font-semibold sm:text-lg">
                     {title}
                   </h1>
