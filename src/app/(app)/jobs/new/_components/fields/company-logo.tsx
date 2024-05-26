@@ -30,7 +30,19 @@ export function CompanyLogoField({
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setPreviewUrl(selectedImage ? URL.createObjectURL(selectedImage) : "");
+    let objectUrl: string | undefined;
+    if (selectedImage) {
+      objectUrl = URL.createObjectURL(selectedImage);
+      setPreviewUrl(objectUrl);
+    } else {
+      setPreviewUrl("");
+    }
+
+    return () => {
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
+    };
   }, [selectedImage]);
 
   return (
@@ -52,7 +64,10 @@ export function CompanyLogoField({
                 onClick={() => inputFileRef.current?.click()}
                 type="button"
                 disabled={isSubmitting}
-                className="flex size-full items-center justify-center"
+                className={cn(
+                  "flex size-full items-center justify-center",
+                  isSubmitting && "cursor-not-allowed opacity-50",
+                )}
               >
                 <Upload className="size-4 text-muted-foreground" />
               </button>
@@ -66,6 +81,10 @@ export function CompanyLogoField({
                   onClick={() => {
                     setSelectedImage(null);
                     field.onChange("");
+
+                    if (inputFileRef.current) {
+                      inputFileRef.current.value = "";
+                    }
                   }}
                   disabled={isSubmitting}
                   variant="outline"
@@ -77,11 +96,19 @@ export function CompanyLogoField({
                 <AvatarImage
                   onClick={() => inputFileRef.current?.click()}
                   src={previewUrl}
-                  className="cursor-pointer"
+                  className={cn(
+                    "cursor-pointer",
+                    isSubmitting && "cursor-not-allowed opacity-50",
+                  )}
                 />
 
                 <div className="absolute bottom-0 w-full bg-neutral-950/50 px-2 py-1.5">
-                  <p className="truncate text-center text-sm text-white">
+                  <p
+                    className={cn(
+                      "truncate text-center text-sm text-white",
+                      isSubmitting && "cursor-not-allowed opacity-50",
+                    )}
+                  >
                     {image.name}
                   </p>
                 </div>
@@ -102,6 +129,7 @@ export function CompanyLogoField({
                 }
               }}
               ref={inputFileRef}
+              disabled={isSubmitting}
             />
           </FormControl>
           <FormMessage />
