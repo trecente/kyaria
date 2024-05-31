@@ -19,7 +19,7 @@ interface DetailsProps {
 
 export function Details({ control, trigger, isSubmitting }: DetailsProps) {
   return (
-    <Card className="h-full pt-6">
+    <Card className="h-full overflow-x-hidden pt-6">
       <CardContent>
         <div className="space-y-4">
           <TitleField control={control} isSubmitting={isSubmitting} />
