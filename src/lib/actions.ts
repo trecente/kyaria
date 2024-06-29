@@ -1,13 +1,18 @@
 "use server";
 
-import { del, put } from "@vercel/blob";
+import { del } from "@vercel/blob";
 import { nanoid } from "nanoid";
 import path from "path";
 
+import { PostJobError, UnknownError, ValidationError } from "@/lib/exceptions";
+
 import { prisma } from "./prisma";
 import { createJobSchema, filterSchema } from "./schemas";
-import { toSlug } from "./utils";
+import { toSlug, uploadCompanyLogo } from "./utils";
 
+/**
+ * Filters jobs.
+ */
 export async function filterJobs(formData: FormData): Promise<string> {
   const validatedFields = filterSchema.parse(
     Object.fromEntries(formData.entries()),
@@ -25,16 +30,16 @@ export async function filterJobs(formData: FormData): Promise<string> {
   return searchParams.toString();
 }
 
+/**
+ * Creates a new job.
+ */
 export async function createJob(formData: FormData): Promise<void> {
   const validatedFields = createJobSchema.safeParse(
     Object.fromEntries(formData.entries()),
   );
 
   if (!validatedFields.success) {
-    console.error(`Invalid form data: ${JSON.stringify(validatedFields)}`);
-    throw new Error(
-      "Some fields are invalid or missing, please check and try again",
-    );
+    throw new ValidationError();
   }
 
   const {
@@ -60,21 +65,9 @@ export async function createJob(formData: FormData): Promise<void> {
   if (companyLogo) {
     const logoPath = `company_logos/${slug}${path.extname(companyLogo.name)}`;
 
-    try {
-      const { url } = await put(logoPath, companyLogo, {
-        access: "public",
-        addRandomSuffix: false,
-      });
+    const url = await uploadCompanyLogo(logoPath, companyLogo);
 
-      companyLogoUrl = url;
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error(`Failed to upload company logo: ${error.message}`);
-        throw new Error("Failed to upload company logo.");
-      }
-
-      throw new Error("Unknown error occurred while uploading company logo.");
-    }
+    companyLogoUrl = url;
   }
 
   try {
@@ -95,20 +88,15 @@ export async function createJob(formData: FormData): Promise<void> {
         salary: parseInt(formattedSalary),
       },
     });
-  } catch (error: unknown) {
+  } catch (error) {
     if (error instanceof Error) {
       if (companyLogoUrl) {
-        try {
-          await del(companyLogoUrl);
-        } catch (error: any) {
-          console.error(`Failed to delete company logo: ${error.message}`);
-        }
+        await del(companyLogoUrl);
       }
 
-      console.error(`Failed to create job: ${error.message}`);
-      throw new Error("Failed to post job. Please try again later.");
+      throw new PostJobError();
     }
 
-    throw new Error("Unknown error occurred while creating job.");
+    throw new UnknownError();
   }
 }
