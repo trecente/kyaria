@@ -21,7 +21,6 @@ export const getJobs = cache(
 
       return jobs;
     } catch (error) {
-      console.error(`Failed to fetch jobs: ${error}`);
       return [];
     }
   },
@@ -38,7 +37,6 @@ export const getJobsCount = cache(
 
       return count;
     } catch (error) {
-      console.error(`Failed to fetch jobs count: ${error}`);
       return 0;
     }
   },
@@ -60,7 +58,6 @@ export const getDistinctLocations = cache(async (): Promise<string[]> => {
       .map(({ location }) => location)
       .filter(Boolean) as string[];
   } catch (error) {
-    console.error(`Failed to fetch locations: ${error}`);
     return [];
   }
 });
@@ -71,7 +68,6 @@ export const getImages = cache(async (): Promise<string[]> => {
 
     return blobs.map(({ url }) => url);
   } catch (error) {
-    console.error(`Failed to fetch images: ${error}`);
     return [];
   }
 });
@@ -85,7 +81,6 @@ export const getSlugs = cache(async (): Promise<string[]> => {
 
     return slugs.map(({ slug }) => slug);
   } catch (error) {
-    console.error(`Failed to fetch slugs: ${error}`);
     return [];
   }
 });
@@ -102,7 +97,6 @@ export const getJobBySlug = cache(async (slug: string): Promise<Job> => {
 
     return job;
   } catch (error) {
-    console.error(`Failed to fetch job: ${error}`);
     notFound();
   }
 });
