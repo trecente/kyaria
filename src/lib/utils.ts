@@ -1,7 +1,10 @@
 import { Prisma } from "@prisma/client";
+import { put } from "@vercel/blob";
 import { type ClassValue, clsx } from "clsx";
 import { formatDistanceToNowStrict } from "date-fns";
 import { twMerge } from "tailwind-merge";
+
+import { UnknownError, UploadError } from "@/lib/exceptions";
 
 import { getImages } from "./fetchers";
 import { FilterType, filterSchema } from "./schemas";
@@ -49,7 +52,6 @@ export function validateFilterParams(
 
     return validatedFilterParams.data;
   } catch (error) {
-    console.error(`Unexpected error during validation: ${error}`);
     return null;
   }
 }
@@ -77,7 +79,6 @@ export async function verifyImageUrl(
 
     return isValidImageUrl ? imageUrl : undefined;
   } catch (error) {
-    console.error(`Failed to verify image URL: ${error}`);
     return undefined;
   }
 }
@@ -110,4 +111,21 @@ export function createJobFilter(
   };
 
   return filter;
+}
+
+export async function uploadCompanyLogo(logoPath: string, companyLogo: File) {
+  try {
+    const { url } = await put(logoPath, companyLogo, {
+      access: "public",
+      addRandomSuffix: false,
+    });
+
+    return url;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new UploadError();
+    }
+
+    throw new UnknownError();
+  }
 }
