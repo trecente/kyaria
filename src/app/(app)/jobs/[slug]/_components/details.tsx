@@ -69,11 +69,11 @@ export function Details({
           </CardContent>
         </Card>
 
-        <div className="flex select-none flex-col gap-4">
+        <div className="flex flex-col gap-4">
           <Card>
             <CardContent className="p-6">
               <div className="flex flex-col items-center gap-1">
-                <Avatar className="size-12 rounded-lg">
+                <Avatar className="size-12 select-none rounded-lg">
                   <AvatarImage
                     src={companyLogo || ""}
                     className="object-cover"
