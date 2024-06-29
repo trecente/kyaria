@@ -50,8 +50,8 @@ export function CreateJob() {
       formData.append(key, value as string);
     });
 
-    try {
-      startTransition(async () => {
+    startTransition(async () => {
+      try {
         await createJob(formData);
 
         toast.success("Job submitted successfully and will be reviewed.", {
@@ -59,10 +59,12 @@ export function CreateJob() {
         });
 
         router.push("/");
-      });
-    } catch (error: any) {
-      toast.error(error.message);
-    }
+      } catch (error) {
+        toast.error((error as Error).message, {
+          duration: 5000,
+        });
+      }
+    });
   };
 
   return (
