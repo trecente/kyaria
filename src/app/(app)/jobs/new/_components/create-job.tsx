@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { createJob } from "@/lib/actions";
@@ -39,7 +39,7 @@ export function CreateJob() {
     },
   });
 
-  const { handleSubmit, control, trigger } = form;
+  const { handleSubmit } = form;
 
   const [isSubmitting, startTransition] = useTransition();
 
@@ -88,16 +88,14 @@ export function CreateJob() {
         </NavContainer>
 
         <div className="grid gap-4 md:grid-cols-[1fr_16rem]">
-          <Details
-            control={control}
-            trigger={trigger}
-            isSubmitting={isSubmitting}
-          />
+          <FormProvider {...form}>
+            <Details isSubmitting={isSubmitting} />
 
-          <div className="flex flex-col gap-4">
-            <Company control={control} isSubmitting={isSubmitting} />
-            <Location control={control} isSubmitting={isSubmitting} />
-          </div>
+            <div className="flex flex-col gap-4">
+              <Company isSubmitting={isSubmitting} />
+              <Location isSubmitting={isSubmitting} />
+            </div>
+          </FormProvider>
         </div>
 
         <Button

@@ -1,7 +1,6 @@
-import { Control } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import { WORK_LOCATIONS } from "@/lib/constants";
-import { CreateJobType } from "@/lib/schemas";
 
 import {
   FormControl,
@@ -19,14 +18,12 @@ import {
 } from "@/components/ui/select";
 
 interface WorkLocationFieldProps {
-  control: Control<CreateJobType>;
   isSubmitting: boolean;
 }
 
-export function WorkLocationField({
-  control,
-  isSubmitting,
-}: WorkLocationFieldProps) {
+export function WorkLocationField({ isSubmitting }: WorkLocationFieldProps) {
+  const { control } = useFormContext();
+
   return (
     <FormField
       control={control}

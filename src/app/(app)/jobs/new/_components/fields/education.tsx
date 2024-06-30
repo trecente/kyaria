@@ -1,7 +1,6 @@
-import { Control } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import { EDUCATION_DEGREES_OPTIONS } from "@/lib/constants";
-import { CreateJobType } from "@/lib/schemas";
 
 import {
   FormControl,
@@ -19,11 +18,12 @@ import {
 } from "@/components/ui/select";
 
 interface EducationFieldProps {
-  control: Control<CreateJobType>;
   isSubmitting: boolean;
 }
 
-export function EducationField({ control, isSubmitting }: EducationFieldProps) {
+export function EducationField({ isSubmitting }: EducationFieldProps) {
+  const { control } = useFormContext();
+
   return (
     <FormField
       control={control}

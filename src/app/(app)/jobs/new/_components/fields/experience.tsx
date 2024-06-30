@@ -1,7 +1,6 @@
-import { Control } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import { WORK_EXPERIENCE_OPTIONS } from "@/lib/constants";
-import { CreateJobType } from "@/lib/schemas";
 
 import {
   FormControl,
@@ -19,14 +18,12 @@ import {
 } from "@/components/ui/select";
 
 interface ExperienceFieldProps {
-  control: Control<CreateJobType>;
   isSubmitting: boolean;
 }
 
-export function ExperienceField({
-  control,
-  isSubmitting,
-}: ExperienceFieldProps) {
+export function ExperienceField({ isSubmitting }: ExperienceFieldProps) {
+  const { control } = useFormContext();
+
   return (
     <FormField
       control={control}

@@ -1,6 +1,4 @@
-import { Control } from "react-hook-form";
-
-import { CreateJobType } from "@/lib/schemas";
+import { useFormContext } from "react-hook-form";
 
 import {
   FormControl,
@@ -12,11 +10,12 @@ import {
 import { MaskInput } from "@/components/ui/mask-input";
 
 interface SalaryFieldProps {
-  control: Control<CreateJobType>;
   isSubmitting: boolean;
 }
 
-export function SalaryField({ control, isSubmitting }: SalaryFieldProps) {
+export function SalaryField({ isSubmitting }: SalaryFieldProps) {
+  const { control } = useFormContext();
+
   return (
     <FormField
       control={control}

@@ -1,8 +1,7 @@
 import { Upload, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Control } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
-import { CreateJobType } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -17,14 +16,11 @@ import {
 import { Input } from "@/components/ui/input";
 
 interface CompanyLogoFieldProps {
-  control: Control<CreateJobType>;
   isSubmitting: boolean;
 }
 
-export function CompanyLogoField({
-  control,
-  isSubmitting,
-}: CompanyLogoFieldProps) {
+export function CompanyLogoField({ isSubmitting }: CompanyLogoFieldProps) {
+  const { control } = useFormContext();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const inputFileRef = useRef<HTMLInputElement>(null);

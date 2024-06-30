@@ -1,6 +1,4 @@
-import { Control, UseFormTrigger } from "react-hook-form";
-
-import { CreateJobType } from "@/lib/schemas";
+import { useFormContext } from "react-hook-form";
 
 import {
   FormControl,
@@ -12,16 +10,14 @@ import {
 import { Input } from "@/components/ui/input";
 
 interface ApplicationUrlFieldProps {
-  control: Control<CreateJobType>;
-  trigger: UseFormTrigger<CreateJobType>;
   isSubmitting: boolean;
 }
 
 export function ApplicationUrlField({
-  control,
-  trigger,
   isSubmitting,
 }: ApplicationUrlFieldProps) {
+  const { control, trigger } = useFormContext();
+
   return (
     <FormField
       control={control}

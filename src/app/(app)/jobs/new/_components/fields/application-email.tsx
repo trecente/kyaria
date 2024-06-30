@@ -1,6 +1,4 @@
-import { Control } from "react-hook-form";
-
-import { CreateJobType } from "@/lib/schemas";
+import { useFormContext } from "react-hook-form";
 
 import {
   FormControl,
@@ -12,14 +10,14 @@ import {
 import { Input } from "@/components/ui/input";
 
 interface ApplicationEmailFieldProps {
-  control: Control<CreateJobType>;
   isSubmitting: boolean;
 }
 
 export function ApplicationEmailField({
-  control,
   isSubmitting,
 }: ApplicationEmailFieldProps) {
+  const { control } = useFormContext();
+
   return (
     <FormField
       control={control}
