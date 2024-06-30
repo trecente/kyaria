@@ -89,6 +89,10 @@ export async function createJob(formData: FormData): Promise<void> {
       },
     });
   } catch (error) {
+    if (error instanceof ValidationError) {
+      throw error;
+    }
+
     if (error instanceof Error) {
       if (companyLogoUrl) {
         await del(companyLogoUrl);
