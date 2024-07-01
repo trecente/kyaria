@@ -2,16 +2,20 @@
 const nextConfig = {
   logging: {
     fetches: {
-      fullUrl: true
-    }
+      fullUrl: true,
+    },
   },
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'z9kyu3fdoy8xge2y.public.blob.vercel-storage.com',
+        protocol: "https",
+        hostname: "z9kyu3fdoy8xge2y.public.blob.vercel-storage.com",
       },
     ],
+  },
+  webpack: (config) => {
+    config.externals.push("@node-rs/argon2", "@node-rs/bcrypt");
+    return config;
   },
 };
 
