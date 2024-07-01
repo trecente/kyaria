@@ -1,4 +1,4 @@
-import { Job } from "@prisma/client";
+import { Job, User } from "@prisma/client";
 import { list } from "@vercel/blob";
 import { notFound } from "next/navigation";
 import { cache } from "react";
@@ -100,3 +100,21 @@ export const getJobBySlug = cache(async (slug: string): Promise<Job> => {
     notFound();
   }
 });
+
+export const getUserByEmail = cache(
+  async (email: string): Promise<User | null> => {
+    try {
+      const user = await prisma.user.findUnique({
+        where: {
+          email,
+        },
+      });
+
+      if (!user) return null;
+
+      return user;
+    } catch (error) {
+      return null;
+    }
+  },
+);

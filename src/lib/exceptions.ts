@@ -27,3 +27,47 @@ export class PostJobError extends Error {
     this.name = "PostJobError";
   }
 }
+
+export class SignUpError extends Error {
+  constructor(message: string = "Failed to sign up. Please try again later.") {
+    super(message);
+    this.name = "SignUpError";
+  }
+}
+
+export class EmailAlreadyInUseError extends Error {
+  constructor(message: string = "Email already in use.") {
+    super(message);
+    this.name = "EmailAlreadyInUseError";
+  }
+}
+
+export class InvalidCredentialsError extends Error {
+  constructor(message: string = "Invalid credentials.") {
+    super(message);
+    this.name = "InvalidCredentialsError";
+  }
+}
+
+export class SignInError extends Error {
+  constructor(message: string = "Failed to sign in. Please try again later.") {
+    super(message);
+    this.name = "SignInError";
+  }
+}
+
+export class SignInRequiredError extends Error {
+  constructor(
+    message: string = "You need to be signed in to perform this action.",
+  ) {
+    super(message);
+    this.name = "SignInRequiredError";
+  }
+}
+
+export class SignOutError extends Error {
+  constructor(message: string = "Failed to sign out. Please try again later.") {
+    super(message);
+    this.name = "SignOutError";
+  }
+}
