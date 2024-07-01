@@ -111,3 +111,53 @@ export const createJobSchema = z
   .and(applicationSchema);
 
 export type CreateJobType = z.infer<typeof createJobSchema>;
+
+export const signInFormSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .max(100, { message: "Email address cannot exceed 100 characters" })
+    .email({ message: "Invalid email address" }),
+  password: z.string().min(1, {
+    message: "Password is required",
+  }),
+});
+
+export type SignInFormType = z.infer<typeof signInFormSchema>;
+
+export const signUpFormSchema = z
+  .object({
+    name: z
+      .string()
+      .min(1, { message: "Name is required" })
+      .max(100, { message: "Name cannot exceed 100 characters" })
+      .refine((name) => name.split(" ").length >= 2, {
+        message: "Name must contain at least a first name and a last name",
+      }),
+    email: z
+      .string()
+      .min(1, { message: "Email is required" })
+      .max(100, { message: "Email address cannot exceed 100 characters" })
+      .email({ message: "Invalid email address" }),
+    password: z
+      .string()
+      .min(1, {
+        message: "Password is required",
+      })
+      .regex(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        {
+          message:
+            "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)",
+        },
+      ),
+    confirmPassword: z.string().min(1, {
+      message: "Confirm password is required",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export type SignUpFormType = z.infer<typeof signUpFormSchema>;
