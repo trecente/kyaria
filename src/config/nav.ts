@@ -4,6 +4,6 @@ interface NavItem {
 }
 
 export const navConfig: NavItem[] = [
-  { title: "Sign In", href: "/signin" },
+  { title: "Sign In", href: "/sign-in" },
   { title: "Post a Job", href: "/jobs/new" },
 ];

@@ -2,6 +2,7 @@ import { EnvelopeClosedIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
+import { UserAuthStatus } from "@/components/user-auth-status";
 
 import { Icons } from "./icons";
 import { MobileNav } from "./mobile-nav";
@@ -52,15 +53,7 @@ export function Header() {
 
           <Separator orientation="vertical" />
 
-          <Link
-            href="/signin"
-            className={buttonVariants({
-              variant: "outline",
-              size: "sm",
-            })}
-          >
-            Sign In
-          </Link>
+          <UserAuthStatus />
         </div>
       </div>
     </header>
