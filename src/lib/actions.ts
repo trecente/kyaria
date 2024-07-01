@@ -2,12 +2,31 @@
 
 import { del } from "@vercel/blob";
 import { nanoid } from "nanoid";
+import { cookies } from "next/headers";
+import { Argon2id } from "oslo/password";
 import path from "path";
 
-import { PostJobError, UnknownError, ValidationError } from "@/lib/exceptions";
+import { lucia, validateRequest } from "@/lib/auth";
+import {
+  EmailAlreadyInUseError,
+  InvalidCredentialsError,
+  PostJobError,
+  SignInError,
+  SignInRequiredError,
+  SignOutError,
+  SignUpError,
+  UnknownError,
+  ValidationError,
+} from "@/lib/exceptions";
+import { getUserByEmail } from "@/lib/fetchers";
 
 import { prisma } from "./prisma";
-import { createJobSchema, filterSchema } from "./schemas";
+import {
+  createJobSchema,
+  filterSchema,
+  signInFormSchema,
+  signUpFormSchema,
+} from "./schemas";
 import { toSlug, uploadCompanyLogo } from "./utils";
 
 /**
@@ -99,6 +118,136 @@ export async function createJob(formData: FormData): Promise<void> {
       }
 
       throw new PostJobError();
+    }
+
+    throw new UnknownError();
+  }
+}
+
+/**
+ * Sign in.
+ */
+export async function signIn(formData: FormData): Promise<void> {
+  const validatedFields = signInFormSchema.safeParse(
+    Object.fromEntries(formData.entries()),
+  );
+
+  if (!validatedFields.success) {
+    throw new ValidationError();
+  }
+
+  const { email, password } = validatedFields.data;
+
+  try {
+    const user = await getUserByEmail(email);
+
+    if (!user) throw new InvalidCredentialsError();
+
+    const passwordMatch = await new Argon2id().verify(user.password, password);
+
+    if (!passwordMatch) throw new InvalidCredentialsError();
+
+    const session = await lucia.createSession(user.id, {});
+
+    const sessionCookie = lucia.createSessionCookie(session.id);
+
+    cookies().set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes,
+    );
+  } catch (error) {
+    if (error instanceof (InvalidCredentialsError || ValidationError)) {
+      throw error;
+    }
+
+    if (error instanceof Error) {
+      throw new SignInError();
+    }
+
+    throw new UnknownError();
+  }
+}
+
+/**
+ * Sign up.
+ */
+export async function signUp(formData: FormData): Promise<void> {
+  const validatedFields = signUpFormSchema.safeParse(
+    Object.fromEntries(formData.entries()),
+  );
+
+  if (!validatedFields.success) {
+    throw new ValidationError();
+  }
+
+  const { name, email, password } = validatedFields.data;
+
+  try {
+    const existingUser = await getUserByEmail(email);
+
+    if (existingUser) throw new EmailAlreadyInUseError();
+
+    const hashedPassword = await new Argon2id().hash(password);
+
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email: email.toLowerCase(),
+        password: hashedPassword,
+      },
+    });
+
+    const session = await lucia.createSession(user.id, {});
+
+    const sessionCookie = lucia.createSessionCookie(session.id);
+
+    cookies().set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes,
+    );
+  } catch (error) {
+    if (error instanceof (EmailAlreadyInUseError || ValidationError)) {
+      throw error;
+    }
+
+    if (error instanceof Error) {
+      throw new SignUpError();
+    }
+
+    throw new UnknownError();
+  }
+}
+
+/**
+ * Sign out.
+ */
+export async function signOut(): Promise<void> {
+  try {
+    const { session } = await validateRequest();
+
+    if (!session) {
+      throw new SignInRequiredError();
+    }
+
+    await lucia.invalidateUserSessions(session.userId);
+    await lucia.deleteExpiredSessions();
+
+    const sessionCookie = lucia.createBlankSessionCookie();
+
+    cookies().set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes,
+    );
+  } catch (error) {
+    if (error instanceof SignInRequiredError) {
+      throw error;
+    }
+
+    if (error instanceof Error) {
+      throw new SignOutError();
     }
 
     throw new UnknownError();
